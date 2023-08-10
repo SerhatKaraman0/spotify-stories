@@ -8,7 +8,7 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 
 function NavBar(){
     return (
-      <Navbar expand="lg" className="bg-body-tertiary" data-bs-theme="dark" sticky="top">
+      <Navbar expand="lg" className="bg-body-tertiary" data-bs-theme="light" sticky="top">
         <Container>
           <Navbar.Brand href="#home">Spotify Stories</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />

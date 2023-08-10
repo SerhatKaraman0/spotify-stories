@@ -5,9 +5,10 @@ import NavBar from './components/NavBar';
 import MainContent from './components/MainContent';
 import SearchSong from './components/SearchSong';
 import Profile from './components/Profile';
+import Footer from './components/Footer';
 import 'bootstrap/dist/css/bootstrap.css';
 import './App.css';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
       <MainContent songObjects={songObjects} setSongObjects={setSongObjects}/>
       <SearchSong songObjects={songObjects} setSongObjects={setSongObjects} songList={songList} setSongList={setSongList} listInput={listInput} setListInput={setListInput}/>
       <Profile songList={songList} setSongList={setSongList}/>
+      <Footer />
     </div>
   );
 }
