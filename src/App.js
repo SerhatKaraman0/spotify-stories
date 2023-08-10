@@ -8,20 +8,24 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
-import {useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
+import { Route ,Outlet, Link } from "react-router-dom";
+import ShowList from './pages/ShowList';
 import './App.css';
 
 
 
 function App() {
   const [songObjects, setSongObjects] = useState([]);
+  const [songList, setSongList] = useState([]);
 
 
   return (
     <div className="App">
       <NavBar />
       <MainContent songObjects={songObjects} setSongObjects={setSongObjects}/>
-      <SearchSong songObjects={songObjects} setSongObjects={setSongObjects}/>
+      <SearchSong songObjects={songObjects} setSongObjects={setSongObjects} songList={songList} setSongList={setSongList}/>
+      <Profile songList={songList} setSongList={setSongList}/>
     </div>
   );
 }
@@ -84,10 +88,11 @@ function MainContent({songObjects, setSongObjects}) {
   );
 }
 
-function SearchSong({songObjects, setSongObjects}) {
+function SearchSong({songObjects, setSongObjects, songList, setSongList}) {
   const [searchInput, setSearchInput] = useState("");
   const [accessToken, setAccessToken] = useState("");
   const [descInput, setDescInput] = useState("");
+  
 
   async function search(){
     const songParams = {
@@ -110,6 +115,12 @@ function SearchSong({songObjects, setSongObjects}) {
     }
     console.log(songObjects)
   }
+
+  function addList(){
+    setSongList(prevList => [...prevList, songObjects])
+    setSongObjects(prevList => [])
+  }
+
   useEffect(() => {
     const authParameters = {
       method: 'POST',
@@ -142,7 +153,40 @@ function SearchSong({songObjects, setSongObjects}) {
         />
       </Form.Group>
       <Button variant="primary" onClick={search}>Add the song</Button>{' '}
+      <Button variant="success" onClick={addList}>Add list to profile</Button>{' '}
     </Form>
+    </div>
+  );
+}
+
+function Profile({ songList, setSongList }){
+  function deleteList(index){
+    const updatedList = [...songList]
+    updatedList.splice(index, 1)
+    setSongList(updatedList)
+  }
+  return (
+    <div>
+      <h2 style={{textAlign:'center'}} >Profile</h2><br/>
+      <div>
+      <div className="cards">
+      <Row xs={1} md={2} className="g-4">
+      {songList.map((songObj, idx) => (
+        <Col key={idx}>
+          <Card>
+            <Card.Img variant="top" src={songObj[0].album.images[1].url} />
+            <Card.Body>
+              <Card.Title><Link to="ShowList">List {idx+1}</Link></Card.Title>
+              <Button variant="danger" onClick={
+                () => deleteList(idx)
+              }>Remove</Button>
+            </Card.Body>
+          </Card>
+        </Col>
+      ))}
+    </Row>
+    </div>
+      </div>
     </div>
   );
 }
