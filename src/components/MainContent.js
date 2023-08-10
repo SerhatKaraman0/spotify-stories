@@ -12,6 +12,12 @@ function MainContent({songObjects, setSongObjects}) {
       updatedSongs.splice(index, 1)
       setSongObjects(updatedSongs)
     }
+
+    const cardStyle = {
+      width: '100px',
+      height: '100px'
+    }
+
     return (
       <div className="cards">
         <Row xs={1} md={2} className="g-4">
