@@ -13,10 +13,6 @@ function MainContent({songObjects, setSongObjects}) {
       setSongObjects(updatedSongs)
     }
 
-    const cardStyle = {
-      width: '100px',
-      height: '100px'
-    }
 
     return (
       <div className="cards">

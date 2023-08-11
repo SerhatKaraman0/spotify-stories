@@ -1,29 +1,22 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import './App.css';
 import React from 'react';
-import NavBar from './components/NavBar';
-import MainContent from './components/MainContent';
-import SearchSong from './components/SearchSong';
-import Profile from './components/Profile';
-import Footer from './components/Footer';
+import ListView from './components/ListView';
+import Home from './components/Home'
 import 'bootstrap/dist/css/bootstrap.css';
-import './App.css';
+import {  Route, Routes } from 'react-router-dom';
 import { useState } from 'react';
 
 
-function App() {
-  const [songObjects, setSongObjects] = useState([]);
-  const [songList, setSongList] = useState([]);
-  const [listInput, setListInput] = useState("");
 
+function App() {
+  
+  
   return (
-    <div className="App">
-      <NavBar />
-      <MainContent songObjects={songObjects} setSongObjects={setSongObjects}/>
-      <SearchSong songObjects={songObjects} setSongObjects={setSongObjects} songList={songList} setSongList={setSongList} listInput={listInput} setListInput={setListInput}/>
-      <Profile songList={songList} setSongList={setSongList}/>
-      <Footer />
-    </div>
+    <Routes>
+      <Route path="/" element={<Home />}></Route>
+      <Route path="/list/:playlistname" element={<ListView />} />
+    </Routes>
   );
 }
 
